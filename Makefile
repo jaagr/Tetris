@@ -6,11 +6,9 @@ DIST			:= dist
 TEST			:= test
 RES			:= resources
 
-LIB			:= lib
 TGT			:= Simple
 TGT_TEST		:= Simple_test
 
-#CXX			:= clang++-3.2
 RM			:= rm
 MKDIR			:= mkdir
 FIND			:= find
@@ -18,14 +16,18 @@ CP			:= cp
 
 ## Compilation common flags
 CXX			:= g++
-CXXFLAGS_COMMON	:= -std=gnu++14 -Wall -Iinclude -I$(EXTERNALS)/SFML/include 
-#cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++11 -stdlib=libc++ -U__STRICT_ANSI__"
-#CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++11 -Iinclude -I$(EXTERNALS)/SFML/include
-CXXFLAGS			:= $(CXXFLAGS_COMMON)
-DEPSFLAGS			:= -MMD -MP
+CXXFLAGS_COMMON		:= -std=gnu++14 -Wall -Iinclude
+
+#CXX			:= clang++
+#CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude
+#cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++1y -stdlib=libc++ -U__STRICT_ANSI__"
+
+CXXFLAGS		:= $(CXXFLAGS_COMMON)
+DEPSFLAGS		:= -MMD -MP
 
 ## Linker common flags
-LD_FLAGS		:= -L$(LIB) #-lsfml-graphics -lsfml-window -lsfml-system
+LIB			:= lib/$(CXX)
+LD_FLAGS		:= -L$(LIB)
 
 ## Runtime flags
 LD_LIBRARY_PATH 	:= $(LIB):$(LD_LIBRARY_PATH)
@@ -37,8 +39,8 @@ DEPS			:= $(OBJS:.o=.d)
 
 ## Test objects
 CPP_TEST_FILES		:= $(filter-out src/main.cpp, $(shell $(FIND) src test -iname *.cpp))
-TEST_OBJS			:= $(patsubst src%, $(BUILD)/$(TEST)%, $(patsubst test%, $(BUILD)/$(TEST)%,$(patsubst %.cpp, %.o, $(CPP_TEST_FILES))))
-TEST_DEPS			:= $(TEST_OBJS:.o=.d)		
+TEST_OBJS		:= $(patsubst src%, $(BUILD)/$(TEST)%, $(patsubst test%, $(BUILD)/$(TEST)%,$(patsubst %.cpp, %.o, $(CPP_TEST_FILES))))
+TEST_DEPS		:= $(TEST_OBJS:.o=.d)		
 
 ## Test specific compilation and linking flags
 GMOCK	        	:= $(EXTERNALS)/gmock-1.7.0
