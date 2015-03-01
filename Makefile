@@ -10,17 +10,17 @@ LIB			:= lib
 TGT			:= Simple
 TGT_TEST		:= Simple_test
 
-CXX			:= clang++-3.2
+#CXX			:= clang++-3.2
 RM			:= rm
 MKDIR			:= mkdir
 FIND			:= find
 CP			:= cp
 
 ## Compilation common flags
-#CXX			:= g++
-#CXXFLAGS_COMMON	:= -std=gnu++11 -Wall -Iinclude -I$(EXTERNALS)/SFML/include
+CXX			:= g++
+CXXFLAGS_COMMON	:= -std=gnu++14 -Wall -Iinclude -I$(EXTERNALS)/SFML/include 
 #cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++11 -stdlib=libc++ -U__STRICT_ANSI__"
-CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++11 -Iinclude -I$(EXTERNALS)/SFML/include
+#CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++11 -Iinclude -I$(EXTERNALS)/SFML/include
 CXXFLAGS			:= $(CXXFLAGS_COMMON)
 DEPSFLAGS			:= -MMD -MP
 
@@ -42,7 +42,7 @@ TEST_DEPS			:= $(TEST_OBJS:.o=.d)
 
 ## Test specific compilation and linking flags
 GMOCK	        	:= $(EXTERNALS)/gmock-1.7.0
-LD_FLAGS_TEST		:= $(LD_FLAGS) -lpthread -lgmock
+LD_FLAGS_TEST		:= $(LD_FLAGS) -lgmock -lpthread
 CXXFLAGS_TEST		:= $(CXXFLAGS_COMMON) -I$(GMOCK)/include -I$(GMOCK)/gtest/include -Itest/mocks
 
 ## Targets

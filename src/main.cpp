@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "Simple.hpp"
 
 int main(int argc, char **argv) {
