@@ -15,11 +15,11 @@ FIND			:= find
 CP			:= cp
 
 ## Compilation common flags
-CXX			:= g++
-CXXFLAGS_COMMON		:= -std=gnu++14 -Wall -Iinclude
+#CXX			:= g++-4.9
+#CXXFLAGS_COMMON	:= -std=c++14 -Wall -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include 
 
-#CXX			:= clang++
-#CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude
+CXX			:= clang++
+CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++14 -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include 
 #cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++1y -stdlib=libc++ -U__STRICT_ANSI__"
 
 CXXFLAGS		:= $(CXXFLAGS_COMMON)
