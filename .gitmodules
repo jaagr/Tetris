@@ -1,0 +1,6 @@
+[submodule "externals/di"]
+	path = externals/di
+	url = https://github.com/norkos/di.git
+[submodule "externals/msm"]
+	path = externals/msm
+	url = https://github.com/norkos/msm.git
