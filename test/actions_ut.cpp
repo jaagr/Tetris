@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <memory>
 #include "iboard_mock.hpp"
+#include "iviewer_mock.hpp"
 #include "actions.hpp"
 
 namespace tetris {
@@ -14,10 +15,12 @@ TEST(action_test, init_board)
 {
     //  given
     auto board_mock = std::make_shared<GT::StrictMock<mocks::iboard_mock>>();
-    init_board sut(board_mock);
+    auto view_mock  = std::make_shared<GT::StrictMock<mocks::iviewer_mock>>();
+    init_board sut(board_mock, view_mock);
     
     //  expected
     EXPECT_CALL(*board_mock, init_board());
+    EXPECT_CALL(*view_mock, clear());
     
     //  when
     sut(dummy_action());

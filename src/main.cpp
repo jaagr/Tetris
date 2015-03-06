@@ -1,12 +1,13 @@
 #include "controller.hpp"
 #include "board.hpp"
+#include "gui/viewer.hpp"
 #include <boost/di.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace di = boost::di;
 
 int main() {
-    auto sm = di::make_injector(di::bind<tetris::iboard, tetris::board>).create<tetris::controller>();
+    auto sm = di::make_injector(di::bind<tetris::iboard, tetris::board>, di::bind<tetris::iviewer, tetris::viewer>).create<tetris::controller>();
     
     
     sf::Window window(sf::VideoMode(800, 600), "My window");
