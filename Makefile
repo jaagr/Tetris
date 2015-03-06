@@ -48,7 +48,7 @@ LD_FLAGS_TEST		:= $(LD_FLAGS) -lgmock -lpthread
 CXXFLAGS_TEST		:= $(CXXFLAGS_COMMON) -I$(GMOCK)/include -I$(GMOCK)/gtest/include -Itest/mocks
 
 ## Targets
-all: $(BUILD)/$(DIST)/$(TGT)
+all: test $(BUILD)/$(DIST)/$(TGT) 
 
 rebuilt: clean all
 
