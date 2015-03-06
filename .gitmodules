@@ -4,3 +4,6 @@
 [submodule "externals/msm"]
 	path = externals/msm
 	url = https://github.com/norkos/msm.git
+[submodule "externals/SFML"]
+	path = externals/SFML
+	url = https://github.com/LaurentGomila/SFML.git

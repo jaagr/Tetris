@@ -3,6 +3,7 @@
 
 #include "interfaces/iboard.hpp"
 #include <boost/msm/front/euml/euml.hpp>
+#include <memory>
 
 namespace tetris {
 
