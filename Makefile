@@ -19,7 +19,7 @@ CP			:= cp
 #CXXFLAGS_COMMON	:= -std=c++14 -Wall -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include 
 
 CXX			:= clang++
-CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++14 -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include 
+CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include -I$(EXTERNALS)/SFML/include 
 #cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++1y -stdlib=libc++ -U__STRICT_ANSI__"
 
 CXXFLAGS		:= $(CXXFLAGS_COMMON)
@@ -27,7 +27,7 @@ DEPSFLAGS		:= -MMD -MP
 
 ## Linker common flags
 LIB			:= lib/$(CXX)
-LD_FLAGS		:= -L$(LIB)
+LD_FLAGS		:= -L$(LIB) -lsfml-graphics -lsfml-window -lsfml-system
 
 ## Runtime flags
 LD_LIBRARY_PATH 	:= $(LIB):$(LD_LIBRARY_PATH)
@@ -58,7 +58,7 @@ test: $(BUILD)/$(TEST)/$(TGT_TEST)
 dirtree:
 	@$(MKDIR) -p $(BUILD)/$(DIST) $(BUILD)/$(TEST)
 
-run: $(BUILD)/$(DIST)/$(TGT) $(BUILD)/$(DIST)/$(RES)
+run: $(BUILD)/$(DIST)/$(TGT) #$(BUILD)/$(DIST)/$(RES)
 	@cd $(BUILD)/$(DIST) && ./$(TGT)
 
 clean:

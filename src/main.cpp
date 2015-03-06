@@ -1,7 +1,7 @@
 #include "controller.hpp"
 #include "board.hpp"
 #include <boost/di.hpp>
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace di = boost::di;
 

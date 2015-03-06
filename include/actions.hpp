@@ -24,6 +24,10 @@ class init_board : public action<init_board> {
 public:
     using action::action;
     
+    template<class Event>
+    void operator()(const Event&){
+        board_->init_board();
+    }
 };
 
 } // namespace tetris
