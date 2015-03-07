@@ -19,7 +19,7 @@ CP			:= cp
 #CXXFLAGS_COMMON	:= -std=c++14 -Wall -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include 
 
 CXX			:= clang++
-CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include -I$(EXTERNALS)/SFML/include 
+CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include -I$(EXTERNALS)/SFML/include
 #cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++1y -stdlib=libc++ -U__STRICT_ANSI__"
 
 CXXFLAGS		:= $(CXXFLAGS_COMMON)
