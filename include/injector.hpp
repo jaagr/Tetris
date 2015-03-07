@@ -19,8 +19,8 @@ public:
                         di::bind<iboard, board>, 
                         di::bind<iviewer, viewer>,
                         di::bind<iwindow, sfml::window>,
-                        di::bind<int>.named(window_width).to(500),
-                        di::bind<int>.named(window_height).to(500),
+                        di::bind<int>.named(window_width).to(1000),
+                        di::bind<int>.named(window_height).to(1000),
                         di::bind<std::string>.named(window_title).to("Hello")
         );
     }
