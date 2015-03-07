@@ -7,7 +7,8 @@ class iwindow
 {
 public:
     virtual ~iwindow() {}
-    virtual void clear_window() {};
+    virtual void clear_window() = 0;
+    virtual void draw() = 0;
 };
     
 }   //  namespace tetris

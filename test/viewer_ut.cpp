@@ -22,6 +22,19 @@ TEST(viewer_test, clean_board)
     //  when
     sut.clear();
 }
+
+TEST(viewer_test, render_board)
+{
+    //  given
+    auto window_mock = std::make_shared<GT::StrictMock<mocks::iwindow_mock>>();
+    viewer sut(window_mock);
     
+    //  expected
+    EXPECT_CALL(*window_mock, draw());
+    
+    //  when
+    sut.render();
+}
+
 } // namespace ut
 } // namespace tetris

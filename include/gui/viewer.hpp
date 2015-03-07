@@ -13,7 +13,7 @@ public:
     viewer(std::shared_ptr<iwindow> window);
     virtual ~viewer() {}
     virtual void clear();
-    virtual void render() {}
+    virtual void render();
     
 private:
     std::shared_ptr<iwindow> window_;

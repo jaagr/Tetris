@@ -5,6 +5,7 @@ namespace tetris{
 
 auto window_width =  []{};
 auto window_height = []{};
+auto window_title  = []{};
 
 } // namespace tetris
 #endif

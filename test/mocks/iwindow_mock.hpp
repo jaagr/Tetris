@@ -13,6 +13,7 @@ class iwindow_mock : public iwindow
 public:
     virtual ~iwindow_mock() {}
     MOCK_METHOD0(clear_window, void());
+    MOCK_METHOD0(draw, void());
 };
 
 } // namespace mocks

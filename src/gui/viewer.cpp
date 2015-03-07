@@ -11,4 +11,9 @@ void viewer::clear()
     window_->clear_window();
 }
 
+void viewer::render()
+{
+    window_->draw();
+}
+
 } // namespace tetris
