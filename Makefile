@@ -56,7 +56,8 @@ test: $(BUILD)/$(TEST)/$(TGT_TEST)
 	./$(BUILD)/$(TEST)/$(TGT_TEST)
 
 dirtree:
-	@$(MKDIR) -p $(BUILD)/$(DIST) $(BUILD)/$(TEST)
+	$(foreach directory, $(OBJS), @$(MKDIR) -p $(shell dirname $(directory)))
+	$(foreach directory, $(TEST_OBJS), @$(MKDIR) -p $(shell dirname $(directory)))
 
 run: $(BUILD)/$(DIST)/$(TGT) #$(BUILD)/$(DIST)/$(RES)
 	@cd $(BUILD)/$(DIST) && ./$(TGT)
