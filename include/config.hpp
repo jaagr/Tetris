@@ -3,8 +3,8 @@
 
 namespace tetris{
 
-auto width =  []{};
-auto height = []{};
+auto window_width =  []{};
+auto window_height = []{};
 
 } // namespace tetris
 #endif

@@ -14,8 +14,8 @@ class window : public iwindow
 {
 public:
     BOOST_DI_INJECT(window
-    ,   (named = width) int w
-    ,   (named = height) int h);
+    ,   (named = window_width) int width
+    ,   (named = window_height) int height);
     
     virtual ~window();
     virtual void clear_window();

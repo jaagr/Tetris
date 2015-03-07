@@ -19,8 +19,8 @@ public:
                         di::bind<iboard, board>, 
                         di::bind<iviewer, viewer>,
                         di::bind<iwindow, sfml::window>,
-                        di::bind<int>.named(width).to(755),
-                        di::bind<int>.named(height).to(600)
+                        di::bind<int>.named(window_width).to(500),
+                        di::bind<int>.named(window_height).to(500)
         );
     }
 };

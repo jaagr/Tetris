@@ -1,11 +1,12 @@
 #include "sfml/window.hpp"
 #include <iostream>
+
 namespace tetris {
 namespace sfml {
 
-window::window(int w, int h) 
+window::window(int wight, int heiht) 
 {
-    std::cout << w;
+    std::cout << wight;
 }
 
 window::~window(){
