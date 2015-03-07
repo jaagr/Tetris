@@ -48,7 +48,7 @@ LD_FLAGS_TEST		:= $(LD_FLAGS) -lgmock -lpthread
 CXXFLAGS_TEST		:= $(CXXFLAGS_COMMON) -I$(GMOCK)/include -I$(GMOCK)/gtest/include -Itest/mocks
 
 ## Targets
-all: test $(BUILD)/$(DIST)/$(TGT) 
+all: $(BUILD)/$(DIST)/$(TGT) 
 
 rebuilt: clean all
 
@@ -56,8 +56,10 @@ test: $(BUILD)/$(TEST)/$(TGT_TEST)
 	./$(BUILD)/$(TEST)/$(TGT_TEST)
 
 dirtree:
-	$(foreach directory, $(OBJS), @$(MKDIR) -p $(shell dirname $(directory)))
-	$(foreach directory, $(TEST_OBJS), @$(MKDIR) -p $(shell dirname $(directory)))
+	mkdir -p $(foreach directory, $(OBJS), $(shell dirname $(directory)))
+
+dirtree_tst:
+	mkdir -p $(foreach directory, $(TEST_OBJS), $(shell dirname $(directory)))
 
 run: $(BUILD)/$(DIST)/$(TGT) #$(BUILD)/$(DIST)/$(RES)
 	@cd $(BUILD)/$(DIST) && ./$(TGT)
@@ -74,7 +76,7 @@ $(BUILD)/$(DIST)/$(TGT): $(OBJS)
 $(BUILD)/$(DIST)/%.o: src/%.cpp |  dirtree
 	$(CXX) $(CXXFLAGS) $(DEPSFLAGS) -c $< -o $@
 
-$(BUILD)/$(TEST)/%.o: test/%.cpp |  dirtree
+$(BUILD)/$(TEST)/%.o: test/%.cpp |  dirtree_tst
 	$(CXX) $(CXXFLAGS_TEST) $(DEPSFLAGS) -c $< -o $@
 
 $(BUILD)/$(TEST)/%.o: src/%.cpp |  dirtree
