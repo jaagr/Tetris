@@ -21,6 +21,7 @@ TEST(action_test, init_board)
     //  expected
     EXPECT_CALL(*board_mock, init_board());
     EXPECT_CALL(*view_mock, clear());
+    EXPECT_CALL(*view_mock, render());
     
     //  when
     sut(dummy_action());

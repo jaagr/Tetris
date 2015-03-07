@@ -13,6 +13,7 @@ class iviewer_mock : public iviewer
 public:
     virtual ~iviewer_mock() {}
     MOCK_METHOD0(clear, void());
+    MOCK_METHOD0(render, void());
 };
 
 } // namespace mocks

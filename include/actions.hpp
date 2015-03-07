@@ -19,6 +19,7 @@ public:
 protected:
     void show_board(){
         viewer_->clear();
+        viewer_->render();
     }
     
     std::shared_ptr<iboard> board_;

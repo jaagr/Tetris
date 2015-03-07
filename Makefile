@@ -56,10 +56,10 @@ test: $(BUILD)/$(TEST)/$(TGT_TEST)
 	./$(BUILD)/$(TEST)/$(TGT_TEST)
 
 dirtree:
-	mkdir -p $(foreach directory, $(OBJS), $(shell dirname $(directory)))
+	@$(MKDIR) -p $(foreach directory, $(OBJS), $(shell dirname $(directory)))
 
 dirtree_tst:
-	mkdir -p $(foreach directory, $(TEST_OBJS), $(shell dirname $(directory)))
+	@$(MKDIR) -p $(foreach directory, $(TEST_OBJS), $(shell dirname $(directory)))
 
 run: $(BUILD)/$(DIST)/$(TGT) #$(BUILD)/$(DIST)/$(RES)
 	@cd $(BUILD)/$(DIST) && ./$(TGT)
@@ -79,7 +79,7 @@ $(BUILD)/$(DIST)/%.o: src/%.cpp |  dirtree
 $(BUILD)/$(TEST)/%.o: test/%.cpp |  dirtree_tst
 	$(CXX) $(CXXFLAGS_TEST) $(DEPSFLAGS) -c $< -o $@
 
-$(BUILD)/$(TEST)/%.o: src/%.cpp |  dirtree
+$(BUILD)/$(TEST)/%.o: src/%.cpp |  dirtree_tst
 	$(CXX) $(CXXFLAGS_TEST) $(DEPSFLAGS) -c $< -o $@
 
 $(BUILD)/$(DIST)/$(RES):
