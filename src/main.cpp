@@ -2,12 +2,14 @@
 #include <SFML/Graphics.hpp>
 
 #include <boost/di.hpp>
+#include "game.hpp"
 #include "injector.hpp"
 
 namespace di = boost::di;
 
 int main() {
-    auto sm = tetris::injector().configure().create<tetris::controller>();
+    auto sm = tetris::injector().configure().create<tetris::game>();
+    sm.start();
     /**
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);

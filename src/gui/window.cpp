@@ -1,6 +1,8 @@
-#include "sfml/window.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+
+#include "gui/window.hpp"
+
 namespace tetris {
 
 window::window(int width, int height, std::string title): 

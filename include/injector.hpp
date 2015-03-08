@@ -1,12 +1,14 @@
 #ifndef INJECTOR_HPP
 #define INJECTOR_HPP
 
+#include <boost/di.hpp>
+
 #include "config.hpp"
 #include "board.hpp"
-#include "gui/viewer.hpp"
-#include "sfml/window.hpp"
 
-#include <boost/di.hpp>
+#include "gui/user.hpp"
+#include "gui/viewer.hpp"
+#include "gui/window.hpp"
 
 namespace tetris{
 
@@ -20,6 +22,7 @@ public:
                         di::bind<iviewer, viewer>,
                         di::bind<iwindow, window>,
                         di::bind<ievent_provider<sf::Event>,  window>,
+                        di::bind<iclient,  user>,
                         di::bind<int>.named(window_width).to(1000),
                         di::bind<int>.named(window_height).to(1000),
                         di::bind<std::string>.named(window_title).to("Hello")
