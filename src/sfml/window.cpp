@@ -1,16 +1,20 @@
 #include "sfml/window.hpp"
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
 namespace tetris {
-namespace sfml {
 
 window::window(int width, int height, std::string title): 
             window_(std::move(sf::RenderWindow(sf::VideoMode(width, height), title)))
 {
-    
+    std::cout << "jest";
 }
 
 window::~window(){
+}
+
+bool window::pollEvent(sf::Event& event) 
+{
+    return window_.pollEvent(event);
 }
 
 void window::draw()
@@ -27,5 +31,4 @@ void window::clear_window()
     window_.clear();
 }
 
-} // namespace sfml
 } // namespace tetris

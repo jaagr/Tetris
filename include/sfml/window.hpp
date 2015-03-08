@@ -2,6 +2,7 @@
 #define WINDOW_HPP
 
 #include "interfaces/iwindow.hpp"
+#include "interfaces/ievent_provider.hpp"
 #include "config.hpp"
 #include <memory>
 #include <boost/di.hpp>
@@ -9,10 +10,8 @@
 #include <SFML/Graphics.hpp>
 
 namespace tetris {
-    
-namespace sfml {
 
-class window : public iwindow
+class window : public iwindow, ievent_provider<sf::Event>
 {
 public:
     BOOST_DI_INJECT(window,
@@ -25,11 +24,12 @@ public:
     virtual void clear_window();
     virtual void draw();
     
+    virtual bool pollEvent(sf::Event&);
+    
 private:
     sf::RenderWindow&& window_;
 };
     
-}   //  namespace sf
 }   //  namespace tetris
        
 
