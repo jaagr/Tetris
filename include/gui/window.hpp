@@ -27,7 +27,7 @@ public:
     virtual bool pollEvent(sf::Event&);
     
 private:
-    sf::RenderWindow&& window_;
+    std::shared_ptr<sf::RenderWindow> window_;
 };
     
 }   //  namespace tetris

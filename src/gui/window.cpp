@@ -5,9 +5,9 @@
 
 namespace tetris {
 
-window::window(int width, int height, std::string title): 
-            window_(std::move(sf::RenderWindow(sf::VideoMode(width, height), title)))
+window::window(int width, int height, std::string title)
 {
+    window_ = std::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(width, height), title));
     std::cout << "jest";
 }
 
@@ -16,7 +16,7 @@ window::~window(){
 
 bool window::pollEvent(sf::Event& event) 
 {
-    return window_.pollEvent(event);
+    return window_->pollEvent(event);
 }
 
 void window::draw()
@@ -24,13 +24,13 @@ void window::draw()
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
      
-    window_.draw(shape);
-    window_.display();
+    window_->draw(shape);
+    window_->display();
 }
 
 void window::clear_window()
 {
-    window_.clear();
+    window_->clear();
 }
 
 } // namespace tetris
