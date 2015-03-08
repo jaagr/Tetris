@@ -11,7 +11,7 @@
 
 namespace tetris {
 
-class window : public iwindow, ievent_provider<sf::Event>
+class window : public iwindow, public ievent_provider<sf::Event>
 {
 public:
     BOOST_DI_INJECT(window,

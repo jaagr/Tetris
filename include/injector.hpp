@@ -20,8 +20,7 @@ public:
         return di::make_injector(
                         di::bind<iboard, board>, 
                         di::bind<iviewer, viewer>,
-                        di::bind<iwindow, window>,
-                        di::bind<ievent_provider<sf::Event>,  window>,
+                        di::bind<di::any_of<iwindow, ievent_provider<sf::Event>>,  window>,
                         di::bind<iclient,  user>,
                         di::bind<int>.named(window_width).to(1000),
                         di::bind<int>.named(window_height).to(1000),

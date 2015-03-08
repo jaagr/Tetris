@@ -8,8 +8,9 @@
 namespace di = boost::di;
 
 int main() {
-    auto sm = tetris::injector().configure().create<tetris::game>();
-    sm.start();
+    auto injector = di::make_injector(tetris::injector());
+    injector.create<tetris::game>().start();
+    
     /**
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
