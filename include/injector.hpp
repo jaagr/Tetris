@@ -8,6 +8,8 @@
 
 #include "gui/sfml/window.hpp"
 #include "gui/sfml/user.hpp"
+#include "gui/sfml/controller.hpp"
+
 #include "gui/viewer.hpp"
 
 namespace tetris{
@@ -20,6 +22,7 @@ public:
         return di::make_injector(
                         di::bind<iboard, board>, 
                         di::bind<iviewer, viewer>,
+                        di::bind<fsm, sfml::controller>,
                         di::bind<di::any_of<iwindow, ievent_provider<sf::Event>>,  sfml::window>,
                         di::bind<iclient,  sfml::user>,
                         di::bind<int>.named(window_width).to(1000),

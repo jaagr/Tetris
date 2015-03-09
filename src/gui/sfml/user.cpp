@@ -10,6 +10,8 @@ void user::run()
     while (true){
         while (event_provider_->pollEvent(event))
         {
+            if (event.type == sf::Event::Closed)
+                return;
         }     
     }
 }

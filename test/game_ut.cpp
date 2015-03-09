@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <memory>
+
 #include "game.hpp"
 #include "iclient_mock.hpp"
 
@@ -12,10 +13,10 @@ class dummy_action {};
 
 namespace mocks {
     
-    class controller_mock : public controller
+    class fsm_mock : public fsm
     {
     public:
-        virtual ~controller_mock() {}
+        virtual ~fsm_mock() {}
     };
 }
 
@@ -23,7 +24,7 @@ TEST(game_test, run_client)
 {
     //  given
     auto client_mock = std::make_shared<GT::StrictMock<mocks::iclient_mock>>();
-    auto controller_mock  = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
+    auto controller_mock  = std::make_shared<GT::StrictMock<mocks::fsm_mock>>();
     game sut(controller_mock, client_mock);
     
     //  expected

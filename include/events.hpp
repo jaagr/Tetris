@@ -5,6 +5,14 @@
 
 namespace tetris {
 
-typedef boost::msm::front::euml::True_ anonymous;
+namespace euml = boost::msm::front::euml;
+
+typedef euml::True_ anonymous;
+
+template<class T>
+using event = euml::euml_event<T>;
+
+struct window_close : event<window_close> {};
+
 } // namespace tetris
 #endif
