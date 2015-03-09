@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "gui/user.hpp"
+#include "gui/sfml/user.hpp"
 
 namespace tetris {
 

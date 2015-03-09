@@ -6,9 +6,9 @@
 #include "config.hpp"
 #include "board.hpp"
 
-#include "gui/user.hpp"
+#include "gui/sfml/window.hpp"
+#include "gui/sfml/user.hpp"
 #include "gui/viewer.hpp"
-#include "gui/window.hpp"
 
 namespace tetris{
 
