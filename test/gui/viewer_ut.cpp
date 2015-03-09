@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <memory>
-#include "mocks/iwindow_mock.hpp"
+#include "iwindow_mock.hpp"
 #include "gui/viewer.hpp"
 
 namespace tetris {

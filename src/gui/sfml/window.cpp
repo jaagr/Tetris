@@ -4,6 +4,7 @@
 #include "gui/sfml/window.hpp"
 
 namespace tetris {
+namespace sfml {
 
 window::window(int width, int height, std::string title)
 {
@@ -11,7 +12,8 @@ window::window(int width, int height, std::string title)
     std::cout << "jest";
 }
 
-window::~window(){
+window::~window()
+{
 }
 
 bool window::pollEvent(sf::Event& event) 
@@ -33,4 +35,5 @@ void window::clear_window()
     window_->clear();
 }
 
+} // namespace sfml
 } // namespace tetris

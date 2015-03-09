@@ -10,7 +10,8 @@
 #include "interfaces/ievent_provider.hpp"
 
 namespace tetris {
-
+    
+namespace sfml {
 class user : public iclient
 {
 public:
@@ -25,6 +26,6 @@ private:
     std::shared_ptr<controller> msm_;
 };
 
-}   //  namespace tetris
-
+} // namespace sfml
+} //  namespace tetris
 #endif

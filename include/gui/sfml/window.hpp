@@ -11,6 +11,7 @@
 
 namespace tetris {
 
+namespace sfml {
 class window : public iwindow, public ievent_provider<sf::Event>
 {
 public:
@@ -30,7 +31,7 @@ private:
     std::shared_ptr<sf::RenderWindow> window_;
 };
     
-}   //  namespace tetris
-       
+} // namespace sfml
+} // namespace tetris
 
 #endif
