@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "gui/sfml/window.hpp"
+#include "gui/window.hpp"
 
 namespace tetris {
 namespace sfml {

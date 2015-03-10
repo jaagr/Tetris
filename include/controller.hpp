@@ -16,7 +16,7 @@ namespace euml  = boost::msm::front::euml;
 
 namespace tetris {
     
-class fsm_ : public front::state_machine_def<fsm_> 
+class controller_ : public front::state_machine_def<controller_> 
 {
     struct idle                 : front::state<>, euml::euml_state<idle> {};
     struct board_scrolling      : front::state<>, euml::euml_state<board_scrolling> {};
@@ -39,8 +39,8 @@ public:
     
 };
 
-using fsm = back::state_machine<
-    fsm_,
+using controller = back::state_machine<
+    controller_,
     back::use_dependency_injection
     >;
     
