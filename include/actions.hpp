@@ -1,10 +1,12 @@
 #ifndef ACTIONS_HPP
 #define ACTIONS_HPP
 
+#include <memory>
+#include <boost/msm/front/euml/euml.hpp>
+#include <SFML/Graphics.hpp>
+
 #include "interfaces/iboard.hpp"
 #include "interfaces/iviewer.hpp"
-#include <boost/msm/front/euml/euml.hpp>
-#include <memory>
 
 namespace tetris {
 
@@ -26,7 +28,8 @@ protected:
     std::shared_ptr<iviewer> viewer_;
 };
 
-class init_board : public action<init_board> {
+
+class init_board : public action< init_board> {
 public:
     using action::action;
     

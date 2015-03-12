@@ -1,6 +1,5 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-
 #include <memory>
 
 #include "interfaces/iclient.hpp"
