@@ -15,9 +15,11 @@ namespace tetris{
 
 namespace di = boost::di;
 
-class injector{
+class injector
+{
 public:
-    auto configure() const {
+    auto configure() const 
+    {
         return di::make_injector(
                         di::bind<iboard, board>, 
                         di::bind<iviewer, viewer>,

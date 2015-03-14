@@ -9,7 +9,6 @@ namespace sfml {
 window::window(int width, int height, std::string title)
 {
     window_ = std::shared_ptr<sf::RenderWindow>(new sf::RenderWindow(sf::VideoMode(width, height), title));
-    std::cout << "jest";
 }
 
 window::~window()

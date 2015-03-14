@@ -19,7 +19,8 @@ public:
             board_(board), viewer_(viewer) {}
     
 protected:
-    void show_board(){
+    void show_board()
+    {
         viewer_->clear();
         viewer_->render();
     }
@@ -29,12 +30,14 @@ protected:
 };
 
 
-class init_board : public action< init_board> {
+class init_board : public action< init_board> 
+{
 public:
     using action::action;
     
     template<class Event>
-    void operator()(const Event&){
+    void operator()(const Event&)
+    {
         board_->init_board();
         show_board();
     }

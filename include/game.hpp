@@ -7,9 +7,11 @@
 
 namespace tetris {
     
-class game {
+class game 
+{
 public:
-    game(std::shared_ptr<controller> msm, std::shared_ptr<iclient> client):msm_(msm), client_(client) {}
+    game(std::shared_ptr<controller> msm, std::shared_ptr<iclient> client):
+        msm_(msm), client_(client) {}
     void start();
     
 private:

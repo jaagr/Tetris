@@ -14,7 +14,8 @@
 namespace tetris {
 namespace sfml {
 
-struct event_mapper{
+struct event_mapper
+{
 
     event_mapper(std::shared_ptr<controller> state_machine): state_machine_(state_machine) {}
     
@@ -29,17 +30,20 @@ struct event_mapper{
     template<typename T>
     using events = typename mpl::transform<T, event<mpl::_1>>::type;
     
-    void process_event(const sf::Event& event){
+    void process_event(const sf::Event& event)
+    {
         typedef typename controller::transition_table transition_table;
         for_events<typename events<transition_table>::type>(event);
     }
     
     template<typename Seq>
-    void for_events(const sf::Event&, typename std::enable_if<mpl::empty<Seq>::value>::type* = 0){
+    void for_events(const sf::Event&, typename std::enable_if<mpl::empty<Seq>::value>::type* = 0)
+    {
     }
     
     template<typename Seq>
-    void for_events(const sf::Event& evt, typename std::enable_if<!mpl::empty<Seq>::value>::type* = 0){
+    void for_events(const sf::Event& evt, typename std::enable_if<!mpl::empty<Seq>::value>::type* = 0)
+    {
         typedef typename mpl::front<Seq>::type event_t;
         
         if(is_same_id<event_t>(evt.type)){
@@ -55,12 +59,14 @@ struct event_mapper{
     }
     
     template<typename TEvent>
-    bool is_same_id(int value, typename std::enable_if_t<has_id<TEvent>::value>* = 0){
+    bool is_same_id(int value, typename std::enable_if_t<has_id<TEvent>::value>* = 0)
+    {
         return value == TEvent::id::value;
     }
     
     template<typename TEvent>
-    bool is_same_id(int value, typename std::enable_if_t<!has_id<TEvent>::value>* = 0){
+    bool is_same_id(int value, typename std::enable_if_t<!has_id<TEvent>::value>* = 0)
+    {
         return false;
     }
     

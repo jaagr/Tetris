@@ -1,13 +1,13 @@
 #ifndef CONTROLLER_HPP
 #define CONTROLLER_HPP
 
-#include "actions.hpp"
-#include "events.hpp"
-
 #include <boost/msm/back/state_machine.hpp>
 #include <boost/msm/front/state_machine_def.hpp>
 #include <boost/msm/front/euml/euml.hpp>
 #include <boost/di.hpp>
+
+#include "actions.hpp"
+#include "events.hpp"
 
 namespace mpl   = boost::mpl;
 namespace back  = boost::msm::back;

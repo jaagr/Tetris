@@ -1,13 +1,13 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
+#include <memory>
+#include <boost/di.hpp>
+#include <SFML/Graphics.hpp>
+
 #include "interfaces/iwindow.hpp"
 #include "interfaces/ievent_provider.hpp"
 #include "config.hpp"
-#include <memory>
-#include <boost/di.hpp>
-
-#include <SFML/Graphics.hpp>
 
 namespace tetris {
 

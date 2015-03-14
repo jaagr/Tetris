@@ -1,9 +1,10 @@
 #ifndef VIEWER_HPP
 #define VIEWER_HPP
 
+#include <memory>
+
 #include "interfaces/iviewer.hpp"
 #include "interfaces/iwindow.hpp"
-#include <memory>
 
 namespace tetris {
 
