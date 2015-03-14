@@ -36,8 +36,8 @@ public:
     typedef mpl::vector<idle> initial_state;
     
     BOOST_MSM_EUML_DECLARE_TRANSITION_TABLE((
-        board_scrolling() == idle() [anonymous()] / (init_board()),
-        game_over() == board_scrolling() + window_close()
+       // board_scrolling() == idle() [anonymous()] / (init_board()),
+        game_over() == idle() + window_close()
         
     ), transition_table)
     
