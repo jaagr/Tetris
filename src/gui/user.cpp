@@ -11,8 +11,6 @@
 
 #include "gui/user.hpp"
 
-#include <iostream>
-
 namespace tetris {
 namespace sfml {
 
@@ -53,7 +51,6 @@ struct event_mapper{
     
     template<typename TEvent>
     void process_event(const sf::Event& evt){
-        std::cout<< "Jestem";
         state_machine_->process_event(TEvent(evt));        
     }
     
@@ -74,7 +71,8 @@ void user::run()
 {
     sf::Event event;
     event_mapper mapper(fsm_);
-    while (true){
+    while (!fsm_->is_flag_active<flag_game_over>())
+    {
         while (event_provider_->pollEvent(event))
         {
             mapper.process_event(event);

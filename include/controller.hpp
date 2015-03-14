@@ -26,14 +26,18 @@ class controller_ : public front::state_machine_def<controller_>
     struct try_round            : front::state<>, euml::euml_state<try_round> {};
     struct let_round            : front::state<>, euml::euml_state<let_round> {};
     
-    struct game_over            : front::state<>, euml::euml_state<game_over> {};
+    struct game_over            : front::state<>, euml::euml_state<game_over>
+    {
+        typedef mpl::vector1<flag_game_over> flag_list;
+    };
     
 public:
     
     typedef mpl::vector<idle> initial_state;
     
     BOOST_MSM_EUML_DECLARE_TRANSITION_TABLE((
-        board_scrolling() == idle() [anonymous()] / (init_board())
+        board_scrolling() == idle() [anonymous()] / (init_board()),
+        game_over() == board_scrolling() + window_close()
         
     ), transition_table)
     

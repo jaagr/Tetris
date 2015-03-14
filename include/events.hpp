@@ -11,6 +11,8 @@ namespace euml = boost::msm::front::euml;
 
 typedef euml::True_ anonymous;
 
+class flag_game_over { };
+
 template<class T, int Id>
 struct event : euml::euml_event<T>
 {
