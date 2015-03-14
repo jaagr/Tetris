@@ -1,4 +1,5 @@
 #include "gui/viewer.hpp"
+#include "interfaces/iwindow.hpp"
 
 namespace tetris {
 

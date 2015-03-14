@@ -4,9 +4,10 @@
 #include <memory>
 
 #include "interfaces/iviewer.hpp"
-#include "interfaces/iwindow.hpp"
 
 namespace tetris {
+
+class iwindow;
 
 class viewer : public iviewer
 {

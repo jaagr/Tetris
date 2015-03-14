@@ -1,53 +1,77 @@
 #ifndef CONTROLLER_HPP
 #define CONTROLLER_HPP
 
-#include <boost/msm/back/state_machine.hpp>
-#include <boost/msm/front/state_machine_def.hpp>
-#include <boost/msm/front/euml/euml.hpp>
-#include <boost/di.hpp>
+#include <type_traits>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/pop_front.hpp>
+#include <boost/mpl/front.hpp>
+#include <boost/mpl/empty.hpp>
+#include <boost/mpl/empty.hpp>
+#include <boost/mpl/has_xxx.hpp>
 
-#include "actions.hpp"
-#include "events.hpp"
-
-namespace mpl   = boost::mpl;
-namespace back  = boost::msm::back;
-namespace front = boost::msm::front;
-namespace euml  = boost::msm::front::euml;
+#include "fsm.hpp"
 
 namespace tetris {
     
-class controller_ : public front::state_machine_def<controller_> 
-{
-    struct idle                 : front::state<>, euml::euml_state<idle> {};
-    struct board_scrolling      : front::state<>, euml::euml_state<board_scrolling> {};
-  
-    struct move_left            : front::state<>, euml::euml_state<move_left> {};
-    struct move_right           : front::state<>, euml::euml_state<move_right> {};
-    struct try_round            : front::state<>, euml::euml_state<try_round> {};
-    struct let_round            : front::state<>, euml::euml_state<let_round> {};
-    
-    struct game_over            : front::state<>, euml::euml_state<game_over>
+class controller : public fsm {
+
+    BOOST_MPL_HAS_XXX_TRAIT_DEF(id)
+        
+    template<typename T>
+    struct event
     {
-        typedef mpl::vector1<flag_game_over> flag_list;
+        typedef typename T::Evt type; // transition_event
     };
+    
+    template<typename T>
+    using events = typename mpl::transform<T, event<mpl::_1>>::type;
+    
+    template<typename Seq>
+    void for_events(const sf::Event&, typename std::enable_if<mpl::empty<Seq>::value>::type* = 0)
+    {
+    }
+    
+    template<typename Seq>
+    void for_events(const sf::Event& evt, typename std::enable_if<!mpl::empty<Seq>::value>::type* = 0)
+    {
+        typedef typename mpl::front<Seq>::type event_t;
+        
+        if(is_same_id<event_t>(evt.type)){
+             process_event<event_t>(evt);
+        }else{
+            for_events<typename mpl::pop_front<Seq>::type>(evt);
+        }
+    }
+    
+    template<typename TEvent>
+    void process_event(const sf::Event& evt){
+        fsm::process_event(TEvent(evt));        
+    }
+    
+    template<typename TEvent>
+    bool is_same_id(int value, typename std::enable_if_t<has_id<TEvent>::value>* = 0)
+    {
+        return value == TEvent::id::value;
+    }
+    
+    template<typename TEvent>
+    bool is_same_id(int value, typename std::enable_if_t<!has_id<TEvent>::value>* = 0)
+    {
+        return false;
+    }
     
 public:
     
-    typedef mpl::vector<idle> initial_state;
+    template<typename... Args>
+    explicit controller(Args&&... arg): fsm(std::forward<Args>(arg)...) {}
     
-    BOOST_MSM_EUML_DECLARE_TRANSITION_TABLE((
-       // board_scrolling() == idle() [anonymous()] / (init_board()),
-        game_over() == idle() + window_close()
-        
-    ), transition_table)
-    
+    void process_event(const sf::Event& event)
+    {
+        typedef typename fsm::transition_table transition_table;
+        for_events<typename events<transition_table>::type>(event);
+    }
 };
 
-using controller = back::state_machine<
-    controller_,
-    back::use_dependency_injection
-    >;
-    
 } // namespace tetris
-
 #endif

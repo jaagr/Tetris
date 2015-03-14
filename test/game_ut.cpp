@@ -11,21 +11,12 @@ namespace GT = ::testing;
     
 class dummy_action {};
 
-namespace mocks {
-    
-    class constoller_mock : public controller
-    {
-    public:
-        virtual ~constoller_mock() {}
-    };
-}
 
 TEST(game_test, run_client)
 {
     //  given
     auto client_mock = std::make_shared<GT::StrictMock<mocks::iclient_mock>>();
-    auto controller_mock  = std::make_shared<GT::StrictMock<mocks::constoller_mock>>();
-    game sut(controller_mock, client_mock);
+    game sut(client_mock);
     
     //  expected
     EXPECT_CALL(*client_mock, run());

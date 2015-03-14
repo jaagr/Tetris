@@ -15,15 +15,15 @@ namespace sfml {
 class user : public iclient
 {
 public:
-    user(std::shared_ptr<ievent_provider<sf::Event>> event_provider, std::shared_ptr<controller> fsm): 
-        event_provider_(event_provider), fsm_(fsm) {}
+    user(std::shared_ptr<ievent_provider<sf::Event>> event_provider, std::shared_ptr<controller> state_machine): 
+        event_provider_(event_provider), state_machine_(state_machine) {}
 
     virtual ~user() {}
     virtual void run();
 
 private:
     std::shared_ptr<ievent_provider<sf::Event>> event_provider_;
-    std::shared_ptr<controller> fsm_;
+    std::shared_ptr<controller> state_machine_;
 };
 
 } // namespace sfml
