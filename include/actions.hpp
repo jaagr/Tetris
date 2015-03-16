@@ -3,8 +3,9 @@
 
 #include <memory>
 #include <boost/msm/front/euml/euml.hpp>
-#include <SFML/Graphics.hpp>
+#include <iostream>
 
+#include "events.hpp"
 #include "interfaces/iboard.hpp"
 #include "interfaces/iviewer.hpp"
 
@@ -20,7 +21,7 @@ public:
     
 protected:
     void show_board()
-    {
+    {     
         viewer_->clear();
         viewer_->render();
     }
@@ -30,15 +31,27 @@ protected:
 };
 
 
-class init_board : public action< init_board> 
+class init_board : public action<init_board> 
 {
 public:
     using action::action;
     
-    template<class Event>
+    template<typename Event>
     void operator()(const Event&)
     {
         board_->init_board();
+        show_board();
+    }
+};
+
+class refresh_board : public action<refresh_board> 
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
         show_board();
     }
 };

@@ -6,10 +6,10 @@ namespace tetris {
 class iboard
 {
 public:
-    virtual void init_board() = 0;
     virtual ~iboard() {}
+    virtual void init_board() = 0;
 };
     
-}   //  namespace tetris
+} // namespace tetris
 
 #endif

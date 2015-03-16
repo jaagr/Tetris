@@ -1,7 +1,7 @@
 #ifndef EVENTS_HPP
 #define EVENTS_HPP
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Window/Event.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/msm/front/euml/euml.hpp>
 
@@ -19,11 +19,33 @@ struct event : euml::euml_event<T>
     typedef boost::mpl::int_<Id> id;
 };
 
+template<class T, int Id, int Key>
+struct key_event : event<T, Id>
+{
+    typedef boost::mpl::int_<Key> key;
+};
+
 struct window_close : event<window_close, sf::Event::Closed> 
 {
     window_close() {}
 
     window_close(const sf::Event& event){
+    }
+};
+
+struct window_moved : event<window_moved, sf::Event::GainedFocus> 
+{
+    window_moved() {}
+
+    window_moved(const sf::Event& event){
+    }
+};
+
+struct button_esc : key_event<button_esc, sf::Event::KeyPressed, sf::Keyboard::Key::Escape> 
+{
+    button_esc() {}
+
+    button_esc(const sf::Event& event){
     }
 };
 

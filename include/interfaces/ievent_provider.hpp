@@ -3,11 +3,11 @@
 
 namespace tetris {
 
-template<typename Event>
+template<typename TEvent>
 class ievent_provider
 {
 public:
-    virtual bool pollEvent(Event&) = 0;
+    virtual bool pollEvent(TEvent&) = 0;
 };
     
 }   //  namespace tetris

@@ -16,10 +16,10 @@ CP			:= cp
 
 ## Compilation common flags
 #CXX			:= g++-4.9
-#CXXFLAGS_COMMON	:= -std=c++14 -Wall -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include 
+#CXXFLAGS_COMMON	:= -std=c++14 -Wall -Iinclude-I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include -I$(EXTERNALS)/SFML/include
 
 CXX			:= clang++
-CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include -I$(EXTERNALS)/SFML/include
+CXXFLAGS_COMMON		:= -stdlib=libc++ -std=c++1y -Iinclude -I$(EXTERNALS)/msm/include -I$(EXTERNALS)/di/include -I$(EXTERNALS)/SFML-2.2/include
 #cmake -DCMAKE_CXX_COMPILER="clang++" -DCMAKE_CXX_FLAGS="-std=c++1y -stdlib=libc++ -U__STRICT_ANSI__"
 
 CXXFLAGS		:= $(CXXFLAGS_COMMON)
@@ -61,7 +61,7 @@ dirtree:
 dirtree_tst:
 	@$(MKDIR) -p $(foreach directory, $(TEST_OBJS), $(shell dirname $(directory)))
 
-run: $(BUILD)/$(DIST)/$(TGT) #$(BUILD)/$(DIST)/$(RES)
+run: $(BUILD)/$(DIST)/$(TGT) $(BUILD)/$(DIST)/$(RES)
 	@cd $(BUILD)/$(DIST) && ./$(TGT)
 
 clean:
