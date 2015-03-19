@@ -1,25 +1,20 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-
 #include <memory>
 
-#include "interfaces/iclient.hpp"
-#include "interfaces/icontroller.hpp"
+#include "controller.hpp"
 
 namespace tetris {
+    
+class iclient;
 
-template<typename TEvent>    
 class game {
 public:
-    game(std::shared_ptr<icontroller<TEvent>> msm, std::shared_ptr<iclient> client):msm_(msm), client_(client) {}
-    void start()
-    {
-        msm_->start();
-        client_->run();
-    }
+    game(std::shared_ptr<icontroller<controller>> msm, std::shared_ptr<iclient> client);
+    void start();
     
 private:
-    std::shared_ptr<icontroller<TEvent>> msm_;
+    std::shared_ptr<icontroller<controller>> msm_;
     std::shared_ptr<iclient> client_;
 };
 

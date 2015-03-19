@@ -24,7 +24,7 @@ public:
         return di::make_injector(
                         
                         di::bind<iclient,  user<TEvent> >,
-                        di::bind<icontroller<TEvent>, controller<TEvent>>,
+                        di::bind<icontroller<controller>, controller>,
                         di::bind<di::any_of<iwindow, ievent_provider<TEvent> >,  sfml::window>,
                         
                         di::bind<iboard, board>, 

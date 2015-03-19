@@ -41,6 +41,15 @@ struct window_moved : event<window_moved, sf::Event::GainedFocus>
     }
 };
 
+struct time_tick : event<time_tick, __LINE__> 
+{
+    time_tick() {}
+
+    time_tick(const sf::Event& event){
+    }
+};
+
+
 struct button_esc : key_event<button_esc, sf::Event::KeyPressed, sf::Keyboard::Key::Escape> 
 {
     button_esc() {}

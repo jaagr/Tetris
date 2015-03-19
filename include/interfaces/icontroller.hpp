@@ -3,14 +3,33 @@
 
 namespace tetris {
     
-template<typename TEvent>    
+template<typename CRTP>    
 class icontroller 
 {
 public:    
+    void start()
+    {
+        derived().start();
+    }
+    
+    bool is_active()
+    {
+        return derived().is_active();
+    }
+    
+    template<typename TEvent>    
+    void process_event(const TEvent& evt) 
+    {
+        derived().process_event(evt);
+    }
+    
     virtual ~icontroller() {}
-    virtual void start() = 0;
-    virtual bool is_active() const = 0;
-    virtual void process_event(const TEvent&) = 0;
+
+private:
+   CRTP& derived()
+   {
+       return *static_cast<CRTP*>(this);
+   }
 };
 
 } // namespace tetris

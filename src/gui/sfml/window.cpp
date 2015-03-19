@@ -10,7 +10,7 @@ namespace sfml {
 
 window::window(int width, int height, std::string title)
 {
-    window_.create(sf::VideoMode(width, height), title);
+    window_.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
    // window_.setFramerateLimit(60);
     
     textures_.load(textures::Background, "background.jpg");

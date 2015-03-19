@@ -15,8 +15,7 @@
 
 namespace tetris {
 
-template<typename TEvent>
-class controller : public fsm, public icontroller<TEvent> 
+class controller : public fsm, public icontroller<controller> 
 {
     BOOST_MPL_HAS_XXX_TRAIT_DEF(id)
     BOOST_MPL_HAS_XXX_TRAIT_DEF(key)
@@ -30,29 +29,26 @@ class controller : public fsm, public icontroller<TEvent>
     template<typename T>
     using events = typename mpl::transform<T, event<mpl::_1>>::type;
     
-    template<typename Seq>
+    template<typename Seq, typename TEvent>
     void for_events(const TEvent&, typename std::enable_if<mpl::empty<Seq>::value>::type* = 0)
     {
     }
     
-    template<typename Seq>
+    template<typename Seq, typename TEvent>
     void for_events(const TEvent& evt, typename std::enable_if<!mpl::empty<Seq>::value>::type* = 0)
     {
         typedef typename mpl::front<Seq>::type event_t;
         
         if(is_same_id<event_t>(get_event_type(evt)) && is_same_key<event_t>(get_key_code(evt))){
-             process_event<event_t>(evt);
+             process_event<event_t, TEvent>(evt);
         }else{
             for_events<typename mpl::pop_front<Seq>::type>(evt);
         }
     }
     
-    int get_key_code(const TEvent& evt);
-    int get_event_type(const TEvent& evt);
-    
-    template<typename UEvent>
+    template<typename UEvent, typename TEvent>
     void process_event(const TEvent& evt){
-        fsm::process_event(UEvent(evt));        
+        fsm::process_event(UEvent()); 
     }
     
     template<typename UEvent>
@@ -79,28 +75,36 @@ class controller : public fsm, public icontroller<TEvent>
         return true;
     }
     
+    template<typename TEvent>
+    int get_key_code(const TEvent& evt);
+    
+    template<typename TEvent>
+    int get_event_type(const TEvent& evt);
+    
 public:
     
     template<typename... Args>
     explicit controller(Args&&... arg): fsm(std::forward<Args>(arg)...) {}
     
-    virtual void process_event(const TEvent& event)
+    template<typename TEvent>
+    void process_event(const TEvent& event)
     {
         typedef typename fsm::transition_table transition_table;
-        for_events<typename events<transition_table>::type>(event);
+        for_events<typename events<transition_table>::type, TEvent>(event);
     }
     
-    virtual bool is_active() const
+    bool is_active()
     {
-        return not is_flag_active<flag_game_over>();
+        bool is_over = is_flag_active<flag_game_over>();
+        return not is_over;
     }
     
-    virtual void start() 
+    void start() 
     {
         fsm::start();
     }
         
-    ~controller() {}
+    virtual ~controller() {}
 };
 
 } // namespace tetris

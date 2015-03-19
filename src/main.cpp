@@ -11,8 +11,7 @@ int main()
     typedef typename sf::Event TEvent;
     
     auto injector = di::make_injector(tetris::injector<TEvent>());
-    injector.create<tetris::game<TEvent>>().start();
+    injector.create<tetris::game>().start();
 
-    
     return 0;
 }

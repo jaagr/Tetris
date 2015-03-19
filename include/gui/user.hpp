@@ -5,6 +5,7 @@
 #include <boost/di.hpp>
 
 #include "interfaces/iclient.hpp"
+#include "controller.hpp"
 #include "interfaces/ievent_provider.hpp"
 #include "interfaces/icontroller.hpp"
 
@@ -15,26 +16,15 @@ class user : public iclient
 {
 public:
     user(std::shared_ptr<ievent_provider<TEvent>> event_provider, 
-         std::shared_ptr<icontroller<TEvent>> state_machine): 
-                event_provider_(event_provider), state_machine_(state_machine) {}
+         std::shared_ptr<icontroller<controller>> state_machine);
 
-    virtual ~user() {}
+    virtual ~user();
     
-    virtual void run()
-    {
-        TEvent event;
-        while (state_machine_->is_active())
-        {
-            if (event_provider_->pollEvent(event))
-            {
-                state_machine_->process_event(event);
-            }     
-        }
-    }
+    virtual void run();
 
 private:
     std::shared_ptr<ievent_provider<TEvent>> event_provider_;
-    std::shared_ptr<icontroller<TEvent>> state_machine_;
+    std::shared_ptr<icontroller<controller>> state_machine_;
 };
 
 } //  namespace tetris
