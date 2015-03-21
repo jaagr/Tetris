@@ -4,6 +4,8 @@
 #include <memory>
 #include <boost/di.hpp>
 
+#include "misc/logger.hpp"
+
 #include "interfaces/iclient.hpp"
 #include "interfaces/ievent_provider.hpp"
 #include "interfaces/icontroller.hpp"
@@ -16,7 +18,9 @@ class user : public iclient
 public:
     user(std::shared_ptr<ievent_provider<TEvent>> event_provider, 
          std::shared_ptr<icontroller<TController>> state_machine) :
-         event_provider_(event_provider), state_machine_(state_machine) {}
+         event_provider_(event_provider), state_machine_(state_machine) {
+             LOG("Hey");
+        }
 
     virtual ~user(){}
     

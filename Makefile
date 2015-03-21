@@ -27,7 +27,8 @@ DEPSFLAGS		:= -MMD -MP
 
 ## Linker common flags
 LIB			:= lib/$(CXX)
-LD_FLAGS		:= -L$(LIB) -lsfml-graphics -lsfml-window -lsfml-system
+LD_FLAGS_BASIC		:= -L$(LIB) -lsfml-graphics -lsfml-window -lsfml-system 
+LD_FLAGS		:= $(LD_FLAGS_BASIC) -lpthread
 
 ## Runtime flags
 LD_LIBRARY_PATH 	:= $(LIB):$(LD_LIBRARY_PATH)
@@ -44,7 +45,7 @@ TEST_DEPS		:= $(TEST_OBJS:.o=.d)
 
 ## Test specific compilation and linking flags
 GMOCK	        	:= $(EXTERNALS)/gmock-1.7.0
-LD_FLAGS_TEST		:= $(LD_FLAGS) -lgmock -lpthread
+LD_FLAGS_TEST		:= $(LD_FLAGS_BASIC) -lgmock -lpthread
 CXXFLAGS_TEST		:= $(CXXFLAGS_COMMON) -I$(GMOCK)/include -I$(GMOCK)/gtest/include -Itest/mocks
 
 ## Targets

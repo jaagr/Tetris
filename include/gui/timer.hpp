@@ -3,7 +3,8 @@
 
 #include <memory>
 #include <thread>
-#include <boost/concept_check.hpp>
+
+#include "misc/logger.hpp"
 
 #include "interfaces/iclient.hpp"
 #include "interfaces/icontroller.hpp"
@@ -16,7 +17,8 @@ template<typename TEvent, typename TController>
 class timer : public iclient {
 public:    
     timer(std::shared_ptr<icontroller<TController>> state_machine, int period): 
-        state_machine_(state_machine), period_(period){}
+        state_machine_(state_machine), period_(period){
+        }
     
     virtual ~timer(){}
     

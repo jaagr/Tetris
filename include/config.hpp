@@ -7,8 +7,6 @@ auto window_width  =  []{};
 auto window_height = []{};
 auto window_title  = []{};
 
-auto timer_period  = []{};
-
 auto named_player  = []{};
 auto named_timer   = []{};
 
