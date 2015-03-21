@@ -2,20 +2,30 @@
 #define GAME_HPP
 #include <memory>
 
-#include "controller.hpp"
+#include "interfaces/iclient.hpp"
+#include "interfaces/icontroller.hpp"
 
 namespace tetris {
-    
-class iclient;
 
+template<typename TController>
 class game {
-public:
-    game(std::shared_ptr<icontroller<controller>> msm, std::shared_ptr<iclient> client);
-    void start();
+public:    
+    template<typename ...TClient>
+    explicit game(std::shared_ptr<icontroller<TController>> msm, TClient... clients)
+        :   msm_(msm), clients_{ std::forward<TClient>(clients)...} {}
+        
+    void start()
+    {
+        msm_->start();
+        for(auto& client : clients_)
+        {
+            client->run();
+        }
+    }
     
 private:
-    std::shared_ptr<icontroller<controller>> msm_;
-    std::shared_ptr<iclient> client_;
+    std::shared_ptr<icontroller<TController>> msm_;
+    std::vector<std::shared_ptr<iclient>> clients_;
 };
 
 }// namespace tetris

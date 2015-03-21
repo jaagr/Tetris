@@ -14,8 +14,12 @@ namespace GT = ::testing;
 using event = sf::Event;
 
 namespace mocks {
-class controller_mock: public icontroller_mock {
-public:    
+class controller_mock: public icontroller<controller_mock>
+{
+public:
+    virtual ~controller_mock() {}
+    MOCK_METHOD0(is_active, bool());
+    MOCK_METHOD0(start, void());    
     MOCK_METHOD1(process_event, void(const event&));
 };
 }
@@ -27,7 +31,7 @@ TEST(user_test, run_for_not_working_controller)
     auto controler = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
     
     std::shared_ptr<iclient> sut = 
-        std::make_shared<user<event>>(event_provider_mock, controler);
+        std::make_shared<user<event, mocks::controller_mock>>(event_provider_mock, controler);
     
     //  expect
     EXPECT_CALL(*controler, is_active()).WillRepeatedly(GT::Return(false));
@@ -36,6 +40,7 @@ TEST(user_test, run_for_not_working_controller)
     sut->run();
 }
 
+
 TEST(user_test, run)
 {
     //  given
@@ -43,7 +48,7 @@ TEST(user_test, run)
     auto controler = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
     
     std::shared_ptr<iclient> sut = 
-        std::make_shared<user<event>>(event_provider_mock, controler);
+        std::make_shared<user<event, mocks::controller_mock>>(event_provider_mock, controler);
     
     //  expect
     using ::testing::Sequence;

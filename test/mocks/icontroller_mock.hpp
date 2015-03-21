@@ -10,7 +10,7 @@ namespace tetris {
 namespace ut {
 namespace mocks {
 
-class icontroller_mock : public icontroller<controller>
+class icontroller_mock : public icontroller<icontroller_mock>
 {
 public:
     virtual ~icontroller_mock() {}
