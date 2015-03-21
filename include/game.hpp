@@ -11,7 +11,7 @@ template<typename TController>
 class game {
 public:    
     template<typename ...TClient>
-    explicit game(std::shared_ptr<icontroller<TController>> msm, TClient... clients)
+    explicit game(std::shared_ptr<icontroller<TController>> msm, TClient&&... clients)
         :   msm_(msm), clients_{ std::forward<TClient>(clients)...} {}
         
     void start()
