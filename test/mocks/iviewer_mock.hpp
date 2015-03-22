@@ -14,6 +14,7 @@ public:
     virtual ~iviewer_mock() {}
     MOCK_METHOD0(clear, void());
     MOCK_METHOD0(render, void());
+    MOCK_METHOD1(show_time, void(time_tick));
 };
 
 } // namespace mocks

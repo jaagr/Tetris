@@ -4,8 +4,6 @@
 #include <memory>
 #include <thread>
 
-#include "misc/logger.hpp"
-
 #include "interfaces/iclient.hpp"
 #include "interfaces/icontroller.hpp"
 #include "controller.hpp"
@@ -13,11 +11,11 @@
 namespace tetris{
 
         
-template<typename TEvent, typename TController>
+template<typename TEvent, typename TController, int TPeriod>
 class timer : public iclient {
 public:    
-    timer(std::shared_ptr<icontroller<TController>> state_machine, int period): 
-        state_machine_(state_machine), period_(period){
+    timer(std::shared_ptr<icontroller<TController>> state_machine): 
+        state_machine_(state_machine){
         }
     
     virtual ~timer(){}
@@ -40,12 +38,11 @@ public:
 
 private:
     std::shared_ptr<icontroller<TController>> state_machine_;
-    int period_;
     
     void sleep()
     {
         std::this_thread::sleep_for(
-            std::chrono::milliseconds(period_)
+            std::chrono::milliseconds(TPeriod)
         );
     }
 };

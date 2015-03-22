@@ -12,13 +12,13 @@ int controller::get_key_code(const sf::Event& evt)
 template<>
 int controller::get_key_code(const time_tick& evt)
 {
-    return time_tick::id::value;
+    return one_second_tick::id::value;
 }
 
 template<> // TODO TRAITS !!!!!
 int controller::get_event_type(const time_tick& evt)
 {
-    return time_tick::id::value;
+    return one_second_tick::id::value;
 }
 
 template<>

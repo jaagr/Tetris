@@ -3,8 +3,8 @@
 
 #include <memory>
 #include <boost/msm/front/euml/euml.hpp>
-#include <iostream>
 
+#include "time_tick.hpp"
 #include "events.hpp"
 #include "interfaces/iboard.hpp"
 #include "interfaces/iviewer.hpp"
@@ -55,6 +55,27 @@ public:
         show_board();
     }
 };
+
+class show_time : public action<show_time> 
+{
+public:
+     show_time() {}
+     show_time(std::shared_ptr<iboard> board, 
+               std::shared_ptr<iviewer> viewer, 
+               std::shared_ptr<time_tick> time):
+        action(board, viewer), time_(time){}
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
+        (*time_)++;
+        viewer_->show_time(*time_);
+    }
+    
+private:
+    std::shared_ptr<time_tick> time_;     
+};
+
 
 } // namespace tetris
 

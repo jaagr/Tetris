@@ -16,6 +16,7 @@ public:
     virtual ~viewer() {}
     virtual void clear();
     virtual void render();
+    virtual void show_time(time_tick seconds);
     
 private:
     std::shared_ptr<iwindow> window_;

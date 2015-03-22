@@ -26,14 +26,14 @@ public:
 
 TEST(timer_test, machine_stopped)
 {
-    int timer_period = 1;
+    const int timer_period = 1;
     int wait_period = 2 * timer_period;
     
     //  given
     auto controler = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
     
     std::shared_ptr<iclient> sut =  
-        std::make_shared<timer<event, mocks::controller_mock>>(controler, timer_period);
+        std::make_shared<timer<event, mocks::controller_mock, timer_period>>(controler);
     
     //  expect
     EXPECT_CALL(*controler, is_active()).WillOnce(GT::Return(false));
@@ -48,14 +48,14 @@ TEST(timer_test, machine_stopped)
 
 TEST(timer_test, one_event)
 {
-    int timer_period = 1;
+    const int timer_period = 1;
     int wait_period = 4 * timer_period;
     
     //  given
     auto controler = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
     
     std::shared_ptr<iclient> sut = 
-        std::make_shared<timer<event, mocks::controller_mock>>(controler, timer_period);
+        std::make_shared<timer<event, mocks::controller_mock, timer_period>>(controler);
     
     //  expect
     using ::testing::Sequence;

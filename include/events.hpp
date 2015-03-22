@@ -41,11 +41,11 @@ struct window_moved : event<window_moved, sf::Event::GainedFocus>
     }
 };
 
-struct time_tick : event<time_tick, __LINE__> 
+struct one_second_tick : event<one_second_tick, __LINE__> 
 {
-    time_tick() {}
+    one_second_tick() {}
 
-    time_tick(const sf::Event& event){
+    one_second_tick(const sf::Event& event){
     }
 };
 

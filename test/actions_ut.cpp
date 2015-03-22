@@ -26,6 +26,25 @@ TEST(action_test, init_board)
     //  when
     sut(dummy_action());
 }
+
+TEST(action_test, show_time)
+{
+    //  given
+    auto board_mock = std::make_shared<GT::StrictMock<mocks::iboard_mock>>();
+    auto view_mock  = std::make_shared<GT::StrictMock<mocks::iviewer_mock>>();
+    auto current_time = std::make_shared<time_tick>(0);
+        
+    show_time sut(board_mock, view_mock, current_time);
+    
+    //  expected
+    int time = 0;
+    EXPECT_CALL(*view_mock, show_time(++time));
+    EXPECT_CALL(*view_mock, show_time(++time));
+    
+    //  when
+    sut(dummy_action());
+    sut(dummy_action());
+}
     
 } // namespace ut
 } // namespace tetris

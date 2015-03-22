@@ -17,4 +17,9 @@ void viewer::render()
     window_->draw();
 }
 
+void viewer::show_time(time_tick seconds)
+{
+
+}
+
 } // namespace tetris

@@ -20,7 +20,9 @@ class fsm_ : public front::state_machine_def<fsm_>
 {
     struct idle                 : front::state<>, euml::euml_state<idle> {};
     struct board_scrolling      : front::state<>, euml::euml_state<board_scrolling> {};
-  
+    
+    struct wait_for_client      : front::state<>, euml::euml_state<wait_for_client> {};
+    
     struct move_left            : front::state<>, euml::euml_state<move_left> {};
     struct move_right           : front::state<>, euml::euml_state<move_right> {};
     struct try_round            : front::state<>, euml::euml_state<try_round> {};
@@ -33,14 +35,15 @@ class fsm_ : public front::state_machine_def<fsm_>
     
 public:
     
-    typedef mpl::vector<idle> initial_state;
+    typedef mpl::vector<idle, wait_for_client> initial_state;
     
     BOOST_MSM_EUML_DECLARE_TRANSITION_TABLE((
         board_scrolling()   == idle()                                       [anonymous()] / (init_board())   ,
                                board_scrolling()    +    window_moved()                   / (refresh_board()),
-        game_over()         == board_scrolling()    +    window_close()                                      ,
-        game_over()         == board_scrolling()    +    button_esc()
-        
+                                             
+        wait_for_client()   == wait_for_client()    +    one_second_tick()                / (show_time())    ,
+        game_over()         == wait_for_client()    +    window_close()                                      ,
+        game_over()         == wait_for_client()    +    button_esc()
     ), transition_table)
     
 };

@@ -24,8 +24,9 @@ struct ctor_traits<game<controller>>
 {
     BOOST_DI_INJECT_TRAITS(
         std::shared_ptr<icontroller<controller>>,
-        (named = named_timer)  std::shared_ptr<iclient>,
-        (named = named_player) std::shared_ptr<iclient>
+        (named = timer_second)  std::shared_ptr<iclient>,
+        (named = timer_5s)  std::shared_ptr<iclient>,
+        (named = player) std::shared_ptr<iclient>
     );
 };
 
@@ -34,7 +35,8 @@ struct ctor_traits<game<controller>>
 
 namespace tetris{
 
-
+#define ONE_SECOND   1000
+#define FIVE_SECONDS 5000
 
 template<typename TEvent>
 class injector
@@ -44,8 +46,9 @@ public:
     {
         return di::make_injector(
                         
-                        di::bind<iclient,  user<TEvent, controller>>.named(named_player),
-                        di::bind<iclient,  timer<time_tick, controller>>.named(named_timer),
+                        di::bind<iclient,  user<TEvent, controller>>.named(player),
+                        di::bind<iclient,  timer<time_tick, controller, ONE_SECOND>>.named(timer_second),
+                        di::bind<iclient,  timer<time_tick, controller, FIVE_SECONDS>>.named(timer_5s),
 
                         di::bind<icontroller<controller>, controller>,
                         di::bind<di::any_of<iwindow, ievent_provider<TEvent> >,  sfml::window>,
