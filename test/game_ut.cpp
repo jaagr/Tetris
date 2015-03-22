@@ -20,8 +20,7 @@ TEST(game_test, run_client)
     
     game<mocks::icontroller_mock> sut = game<mocks::icontroller_mock>(controller_mock, 
                                                                       first_client_mock, second_client_mock);
-                                                                      
-    
+
     //  expected
     using ::testing::Sequence;
     Sequence game_time;

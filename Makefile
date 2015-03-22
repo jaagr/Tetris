@@ -27,7 +27,7 @@ DEPSFLAGS		:= -MMD -MP
 
 ## Linker common flags
 LIB			:= lib/$(CXX)
-LD_FLAGS_BASIC		:= -L$(LIB) -lsfml-graphics -lsfml-window -lsfml-system 
+LD_FLAGS_BASIC		:= -L$(LIB) -lsfml-graphics -lsfml-window -lsfml-system -lX11
 LD_FLAGS		:= $(LD_FLAGS_BASIC) -lpthread
 
 ## Runtime flags

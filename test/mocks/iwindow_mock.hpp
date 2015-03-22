@@ -15,6 +15,7 @@ public:
     MOCK_METHOD0(clear_window, void());
     MOCK_METHOD2(resize, void(int, int));
     MOCK_METHOD0(draw, void());
+    MOCK_METHOD1(show_point, void(std::string&));
 };
 
 } // namespace mocks

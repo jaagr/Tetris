@@ -2,6 +2,7 @@
 #define WINDOW_HPP
 
 #include <memory>
+
 #include <boost/di.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -26,13 +27,18 @@ public:
     virtual ~window();
     virtual void clear_window();
     virtual void draw();
+    virtual void show_point(std::string& value);
     
     virtual bool pollEvent(sf::Event&);
     
+    enum layer {
+        BACKGROUND, POINTS };
+
 private:    
     
     texture_holder textures_;
     sf::RenderWindow window_;
+    sf::View point_view_;
     sf::Sprite backgroud_;    
 };
     

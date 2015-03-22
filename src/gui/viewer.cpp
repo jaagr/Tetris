@@ -1,3 +1,5 @@
+#include <boost/lexical_cast.hpp>
+
 #include "gui/viewer.hpp"
 #include "interfaces/iwindow.hpp"
 
@@ -19,7 +21,8 @@ void viewer::render()
 
 void viewer::show_time(time_tick seconds)
 {
-
+     std::string time = boost::lexical_cast<std::string>(seconds);
+     window_->show_point(time);
 }
 
 } // namespace tetris

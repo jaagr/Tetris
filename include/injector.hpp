@@ -3,6 +3,7 @@
 
 #include <boost/di.hpp>
 
+
 #include "config.hpp"
 #include "board.hpp"
 #include "controller.hpp"
@@ -25,7 +26,7 @@ struct ctor_traits<game<controller>>
     BOOST_DI_INJECT_TRAITS(
         std::shared_ptr<icontroller<controller>>,
         (named = timer_second)  std::shared_ptr<iclient>,
-        (named = timer_5s)  std::shared_ptr<iclient>,
+        //(named = timer_5s)  std::shared_ptr<iclient>,
         (named = player) std::shared_ptr<iclient>
     );
 };

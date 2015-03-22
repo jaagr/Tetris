@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <memory>
+
 #include "iboard_mock.hpp"
 #include "iviewer_mock.hpp"
 #include "actions.hpp"

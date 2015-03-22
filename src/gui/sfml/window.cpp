@@ -11,7 +11,8 @@ namespace sfml {
 window::window(int width, int height, std::string title)
 {
     window_.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
-   // window_.setFramerateLimit(60);
+    window_.setFramerateLimit(60);
+    window_.setActive(false);
     
     textures_.load(textures::Background, "background.jpg");
     backgroud_.setTexture(textures_.get(textures::Background));
@@ -27,6 +28,21 @@ window::~window()
 {
 }
 
+void window::show_point(std::string& value) 
+{
+    sf::Font font;
+    font.loadFromFile("font.ttf");
+    window_.clear();
+    sf::Text text;
+    text.setString(value);
+    text.setFont(font);
+    text.setCharacterSize(100);
+    text.setColor(sf::Color::White);
+    window_.draw(backgroud_);
+    window_.draw(text);
+    window_.display();
+}
+
 bool window::pollEvent(sf::Event& event) 
 {
     return window_.pollEvent(event);
@@ -34,7 +50,6 @@ bool window::pollEvent(sf::Event& event)
 
 void window::draw()
 {    
-    window_.clear();
     window_.draw(backgroud_);
     window_.display();
 }
