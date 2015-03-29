@@ -7,7 +7,7 @@ template<typename TEvent>
 class ievent_provider
 {
 public:
-    virtual bool pollEvent(TEvent&) = 0;
+    virtual bool poll_event(TEvent&) = 0;
 };
     
 }   //  namespace tetris

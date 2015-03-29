@@ -4,22 +4,22 @@
 #include <memory>
 
 #include "interfaces/iviewer.hpp"
+#include "interfaces/iwindow.hpp"
 
 namespace tetris {
 
-class iwindow;
-
+template<typename TDrawable>
 class viewer : public iviewer
 {
 public:
-    viewer(std::shared_ptr<iwindow> window);
+    viewer(std::shared_ptr<iwindow<TDrawable>> window);
     virtual ~viewer() {}
     virtual void clear();
     virtual void render();
     virtual void show_time(time_tick seconds);
     
 private:
-    std::shared_ptr<iwindow> window_;
+    std::shared_ptr<iwindow<TDrawable>> window_;
 };
     
 }   //  namespace tetris

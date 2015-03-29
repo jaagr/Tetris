@@ -29,7 +29,7 @@ public:
         TEvent event;
         while (state_machine_->is_active())
         {
-            if (event_provider_->pollEvent(event))
+            if (event_provider_->poll_event(event))
             {
                 state_machine_->process_event(event);
             }     

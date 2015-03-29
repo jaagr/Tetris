@@ -26,12 +26,12 @@ public:
         {
             while(true)
             {
-                sleep();
                 if(not state_machine_->is_active())
                 {
                     return;
                 }
                 state_machine_->process_event(TEvent());
+                sleep();
             }
         }).detach();
     }

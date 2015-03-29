@@ -13,7 +13,7 @@ class ievent_provider_mock : public ievent_provider<TEvent>
 {
 public:
     virtual ~ievent_provider_mock() {}
-    MOCK_METHOD1_T(pollEvent, bool(TEvent&));
+    MOCK_METHOD1_T(poll_event, bool(TEvent&));
 };
 
 } // namespace mocks

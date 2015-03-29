@@ -59,8 +59,8 @@ TEST(user_test, run)
     EXPECT_CALL(*controler, is_active()).InSequence(game_time).WillOnce(GT::Return(false));
     
     Sequence possible_events;
-    EXPECT_CALL(*event_provider_mock, pollEvent(GT::_)).InSequence(possible_events).WillOnce(GT::Return(true));
-    EXPECT_CALL(*event_provider_mock, pollEvent(GT::_)).InSequence(possible_events).WillOnce(GT::Return(false));
+    EXPECT_CALL(*event_provider_mock, poll_event(GT::_)).InSequence(possible_events).WillOnce(GT::Return(true));
+    EXPECT_CALL(*event_provider_mock, poll_event(GT::_)).InSequence(possible_events).WillOnce(GT::Return(false));
     
     EXPECT_CALL(*controler, process_event(GT::_));
     

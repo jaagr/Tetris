@@ -15,7 +15,7 @@ namespace tetris {
 
 namespace sfml {
 
-class window : public iwindow, public ievent_provider<sf::Event>
+class window : public iwindow<sf::Drawable>, public ievent_provider<sf::Event>
 {
 public:
     BOOST_DI_INJECT(window,
@@ -26,19 +26,20 @@ public:
     
     virtual ~window();
     virtual void clear_window();
-    virtual void draw();
-    virtual void show_point(std::string& value);
+    virtual void draw();  
+    virtual bool poll_event(sf::Event&);
     
-    virtual bool pollEvent(sf::Event&);
+    virtual std::shared_ptr<sf::Drawable> create_text(const std::string& text);
     
-    enum layer {
-        BACKGROUND, POINTS };
+    virtual void update_layer(const layer&, std::shared_ptr<sf::Drawable>);
 
 private:    
     
+    std::map<layer, std::shared_ptr<sf::Drawable>> layers_;
     texture_holder textures_;
+    sf::Font font_;
     sf::RenderWindow window_;
-    sf::View point_view_;
+    sf::View game_view_;
     sf::Sprite backgroud_;    
 };
     

@@ -39,7 +39,7 @@ namespace tetris{
 #define ONE_SECOND   1000
 #define FIVE_SECONDS 5000
 
-template<typename TEvent>
+template<typename TEvent, typename TDrawable>
 class injector
 {
 public:
@@ -52,12 +52,12 @@ public:
                         di::bind<iclient,  timer<time_tick, controller, FIVE_SECONDS>>.named(timer_5s),
 
                         di::bind<icontroller<controller>, controller>,
-                        di::bind<di::any_of<iwindow, ievent_provider<TEvent> >,  sfml::window>,
+                        di::bind<di::any_of<iwindow<TDrawable>, ievent_provider<TEvent> >,  sfml::window>,
                         
                         di::bind<iboard, board>, 
-                        di::bind<iviewer, viewer>,
+                        di::bind<iviewer, viewer<TDrawable>>,
                         
-                        di::bind<int>.named(window_width).to(755),
+                        di::bind<int>.named(window_width).to(954),
                         di::bind<int>.named(window_height).to(600),
                         di::bind<std::string>.named(window_title).to("Tetris")
         );

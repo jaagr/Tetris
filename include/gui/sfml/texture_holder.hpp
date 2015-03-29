@@ -6,7 +6,7 @@ namespace tetris {
 namespace sfml {
     
 namespace textures {
-    enum ID { Background, Player};
+    enum ID { Background, Box };
 } // namespace textures
 
 class texture_holder
