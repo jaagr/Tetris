@@ -5,7 +5,6 @@
 
 #include "game.hpp"
 #include "injector.hpp"
-#include "controller.hpp"
 
 namespace di = boost::di;
 

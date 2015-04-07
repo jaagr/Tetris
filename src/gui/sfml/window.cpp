@@ -3,7 +3,6 @@
 #include "misc/logger.hpp"
 
 #include "gui/sfml/window.hpp"
-#include "fsm.hpp"
 
 namespace tetris {
 namespace sfml {
@@ -26,7 +25,6 @@ window::window(int width, int height, std::string title)
     sf::Vector2f scale = sf::Vector2f(float(pos.x) / float(background_size.x), float(pos.y) / float(background_size.y));
     backgroud_.scale(scale);
     
-    game_view_ = window_.getView();
     font_.loadFromFile("font.ttf");
 }
 
@@ -45,7 +43,17 @@ std::shared_ptr<sf::Drawable> window::create_text(const std::string& value)
     return text;
 }
 
-void window::update_layer(const layer& key, std::shared_ptr<sf::Drawable> value)
+std::shared_ptr<sf::Drawable> window::create_box(int r, int g, int b, int x, int y)
+{
+    std::shared_ptr<sf::Sprite> sprite = std::make_shared<sf::Sprite>();
+    sprite->setTexture(textures_.get(textures::Box));
+    sprite->setColor(sf::Color(r,g,b));
+    sprite->setScale(0.45f, 0.45f);
+    sprite->move(x,y);
+    return sprite;
+}
+
+void window::update_layer(const layer& key, std::vector<std::shared_ptr<sf::Drawable>>& value)
 {
     layers_[key] = value;
 }
@@ -58,20 +66,13 @@ bool window::poll_event(sf::Event& event)
 void window::draw()
 {    
     window_.draw(backgroud_);
-    for(int x = 0; x < 9; x ++)
+    
+    for(auto& layer :layers_)
     {
-        for(int y = 0; y < 11; y ++)
+        for(auto& graphics: layer.second)
         {
-            sf::Sprite sprite;
-            sprite.setTexture(textures_.get(textures::Box));
-            sprite.setColor(sf::Color(255 - 20 * y, 20 * y, 0));
-            sprite.setScale(0.5f, 0.5f);
-            sprite.move(240 + x *50, 10 + 50 * y);
-            window_.draw(sprite);
+            window_.draw(*graphics);
         }
-    }
-    for(auto& k :layers_){
-        window_.draw(*k.second);
     }
     
     window_.display();

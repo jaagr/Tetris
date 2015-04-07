@@ -25,6 +25,38 @@ struct key_event : event<T, Id>
     typedef boost::mpl::int_<Key> key;
 };
 
+struct move_left : key_event<move_left, sf::Event::KeyPressed, sf::Keyboard::Key::Left>
+{
+    move_left() {}
+
+    move_left(const sf::Event& event){
+    }
+};
+
+struct move_right : key_event<move_right, sf::Event::KeyPressed, sf::Keyboard::Key::Right>
+{
+    move_right() {}
+
+    move_right(const sf::Event& event){
+    }
+};
+
+struct move_round : key_event<move_round, sf::Event::KeyPressed, sf::Keyboard::Key::Space>
+{
+    move_round() {}
+
+    move_round(const sf::Event& event){
+    }
+};
+
+struct button_esc : key_event<button_esc, sf::Event::KeyPressed, sf::Keyboard::Key::Escape> 
+{
+    button_esc() {}
+
+    button_esc(const sf::Event& event){
+    }
+};
+
 struct window_close : event<window_close, sf::Event::Closed> 
 {
     window_close() {}
@@ -49,12 +81,11 @@ struct one_second_tick : event<one_second_tick, __LINE__>
     }
 };
 
-
-struct button_esc : key_event<button_esc, sf::Event::KeyPressed, sf::Keyboard::Key::Escape> 
+struct gravity_touch : event<gravity_touch, __LINE__> 
 {
-    button_esc() {}
+    gravity_touch() {}
 
-    button_esc(const sf::Event& event){
+    gravity_touch(const sf::Event& event){
     }
 };
 

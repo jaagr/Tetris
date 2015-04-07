@@ -9,7 +9,7 @@ class iwindow
 public:
     
     enum layer {
-        TIME
+        TIME, BLOCKS
     };
 
     virtual ~iwindow() {}
@@ -17,8 +17,9 @@ public:
     virtual void draw() = 0;
     
     virtual std::shared_ptr<TDrawable> create_text(const std::string& text) = 0;
+    virtual std::shared_ptr<TDrawable> create_box(int r, int g, int b, int x, int y) = 0;
     
-    virtual void update_layer(const layer&, std::shared_ptr<TDrawable>) = 0;
+    virtual void update_layer(const layer&, std::vector<std::shared_ptr<TDrawable>>&) = 0;
 };
     
 }   //  namespace tetris

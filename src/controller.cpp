@@ -15,6 +15,18 @@ int controller::get_key_code(const time_tick& evt)
     return one_second_tick::id::value;
 }
 
+template<>
+int controller::get_key_code(const gravity_touch& evt)
+{
+    return gravity_touch::id::value;
+}
+
+template<> // TODO TRAITS !!!!!
+int controller::get_event_type(const gravity_touch& evt)
+{
+    return gravity_touch::id::value;
+}
+
 template<> // TODO TRAITS !!!!!
 int controller::get_event_type(const time_tick& evt)
 {

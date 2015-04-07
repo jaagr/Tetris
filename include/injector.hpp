@@ -3,7 +3,6 @@
 
 #include <boost/di.hpp>
 
-
 #include "config.hpp"
 #include "board.hpp"
 #include "controller.hpp"
@@ -26,7 +25,7 @@ struct ctor_traits<game<controller>>
     BOOST_DI_INJECT_TRAITS(
         std::shared_ptr<icontroller<controller>>,
         (named = timer_second)  std::shared_ptr<iclient>,
-        //(named = timer_5s)  std::shared_ptr<iclient>,
+        (named = timer_5s)  std::shared_ptr<iclient>,
         (named = player) std::shared_ptr<iclient>
     );
 };
@@ -37,7 +36,7 @@ struct ctor_traits<game<controller>>
 namespace tetris{
 
 #define ONE_SECOND   1000
-#define FIVE_SECONDS 5000
+#define FIFTYMS      500
 
 template<typename TEvent, typename TDrawable>
 class injector
@@ -49,7 +48,7 @@ public:
                         
                         di::bind<iclient,  user<TEvent, controller>>.named(player),
                         di::bind<iclient,  timer<time_tick, controller, ONE_SECOND>>.named(timer_second),
-                        di::bind<iclient,  timer<time_tick, controller, FIVE_SECONDS>>.named(timer_5s),
+                        di::bind<iclient,  timer<gravity_touch, controller, FIFTYMS>>.named(timer_5s),
 
                         di::bind<icontroller<controller>, controller>,
                         di::bind<di::any_of<iwindow<TDrawable>, ievent_provider<TEvent> >,  sfml::window>,

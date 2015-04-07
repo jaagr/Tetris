@@ -8,6 +8,7 @@
 
 #include "actions.hpp"
 #include "events.hpp"
+#include "guards.hpp"
 
 namespace mpl   = boost::mpl;
 namespace back  = boost::msm::back;
@@ -19,14 +20,11 @@ namespace tetris {
 class fsm_ : public front::state_machine_def<fsm_> 
 {
     struct idle                 : front::state<>, euml::euml_state<idle> {};
-    struct board_scrolling      : front::state<>, euml::euml_state<board_scrolling> {};
+    struct clock                : front::state<>, euml::euml_state<clock> {};
     
     struct wait_for_client      : front::state<>, euml::euml_state<wait_for_client> {};
-    
-    struct move_left            : front::state<>, euml::euml_state<move_left> {};
-    struct move_right           : front::state<>, euml::euml_state<move_right> {};
-    struct try_round            : front::state<>, euml::euml_state<try_round> {};
-    struct let_round            : front::state<>, euml::euml_state<let_round> {};
+    struct box_located          : front::state<>, euml::euml_state<box_located> {};
+    struct wait_for_box         : front::state<>, euml::euml_state<wait_for_box> {};
     
     struct game_over            : front::state<>, euml::euml_state<game_over>
     {
@@ -34,15 +32,28 @@ class fsm_ : public front::state_machine_def<fsm_>
     };
     
 public:
-    
-    typedef mpl::vector<idle, wait_for_client> initial_state;
+
+    typedef mpl::vector<idle, clock> initial_state;
     
     BOOST_MSM_EUML_DECLARE_TRANSITION_TABLE((
-        board_scrolling()   == idle()                                       [anonymous()] / (init_board())   ,
-                               board_scrolling()    +    window_moved()                   / (refresh_board()),
+        clock()             == clock()              +    one_second_tick()                      / (show_time())         ,
+        clock()             == clock()              +    window_moved()                         / (refresh_board())     ,
                                              
-        wait_for_client()   == wait_for_client()    +    one_second_tick()                / (show_time())    ,
-        game_over()         == wait_for_client()    +    window_close()                                      ,
+        wait_for_box()      == idle()                                       [anonymous()]       / (init_board())        ,               
+        wait_for_client()   == wait_for_box()                               [anonymous()]       / (generate_brick())      ,
+                                             
+        wait_for_client()   == wait_for_client()    +    gravity_touch()    [is_space()]        / (move_brick_down())     ,
+        box_located()       == wait_for_client()    +    gravity_touch()    [not is_space()]    / (locate_brick())        ,                                                
+        wait_for_box()      == box_located()        +    gravity_touch()                        / (generate_brick())      ,                                   
+
+        wait_for_client()   == wait_for_client()    +    move_left()        [can_move_left()]   / (move_brick_left(),
+                                                                                                   refresh_board())     ,                            
+        wait_for_client()   == wait_for_client()    +    move_right()       [can_move_right()]  / (move_brick_right(), 
+                                                                                                    refresh_board())    ,                            
+        wait_for_client()   == wait_for_client()    +    move_round()       [can_round()]       / (round_brick(),
+                                                                                                    refresh_board())    ,                            
+                                           
+        game_over()         == wait_for_client()    +    window_close()                                                 ,
         game_over()         == wait_for_client()    +    button_esc()
     ), transition_table)
     

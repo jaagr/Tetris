@@ -6,9 +6,9 @@
 #include <boost/di.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "config.hpp"
 #include "interfaces/iwindow.hpp"
 #include "interfaces/ievent_provider.hpp"
-#include "config.hpp"
 #include "gui/sfml/texture_holder.hpp"
 
 namespace tetris {
@@ -30,16 +30,16 @@ public:
     virtual bool poll_event(sf::Event&);
     
     virtual std::shared_ptr<sf::Drawable> create_text(const std::string& text);
+    virtual std::shared_ptr<sf::Drawable> create_box(int r, int g, int b, int x, int y);
     
-    virtual void update_layer(const layer&, std::shared_ptr<sf::Drawable>);
+    virtual void update_layer(const layer&, std::vector<std::shared_ptr<sf::Drawable>>&);
 
 private:    
     
-    std::map<layer, std::shared_ptr<sf::Drawable>> layers_;
+    std::map<layer, std::vector<std::shared_ptr<sf::Drawable>>> layers_;
     texture_holder textures_;
     sf::Font font_;
     sf::RenderWindow window_;
-    sf::View game_view_;
     sf::Sprite backgroud_;    
 };
     

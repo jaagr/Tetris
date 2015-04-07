@@ -39,8 +39,85 @@ public:
     template<typename Event>
     void operator()(const Event&)
     {
-        board_->init_board();
         show_board();
+    }
+};
+
+class locate_brick : public action<locate_brick>
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
+    }
+};
+
+class generate_brick : public action<generate_brick>
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
+        board_->add_brick();
+        viewer_->show_board(board_->to_matrix());
+        show_board();
+    }
+};
+
+class move_brick_left : public action<move_brick_left>
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
+        board_->move_brick_left();
+        viewer_->show_board(board_->to_matrix());
+        show_board();
+    }
+};
+
+class move_brick_right : public action<move_brick_right>
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
+        board_->move_brick_right();
+        viewer_->show_board(board_->to_matrix());
+        show_board();
+    }
+};
+
+class move_brick_down : public action<move_brick_down>
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
+        board_->move_brick_down();
+        viewer_->show_board(board_->to_matrix());
+        show_board();
+    }
+};
+
+class round_brick : public action<round_brick>
+{
+public:
+    using action::action;
+    
+    template<typename Event>
+    void operator()(const Event&)
+    {
     }
 };
 
@@ -70,6 +147,7 @@ public:
     {
         (*time_)++;
         viewer_->show_time(*time_);
+        show_board();
     }
     
 private:

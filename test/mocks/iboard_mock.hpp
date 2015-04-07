@@ -12,7 +12,12 @@ class iboard_mock : public iboard
 {
 public:
     virtual ~iboard_mock() {}
-    MOCK_METHOD0(init_board, void());
+    
+    MOCK_METHOD0(add_brick, void());
+    MOCK_METHOD0(move_brick_left, void());
+    MOCK_METHOD0(move_brick_right, void());
+    MOCK_METHOD0(move_brick_down, void());
+    MOCK_METHOD0(to_matrix, std::vector<row>());
 };
 
 } // namespace mocks

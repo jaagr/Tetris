@@ -15,6 +15,7 @@ public:
     viewer(std::shared_ptr<iwindow<TDrawable>> window);
     virtual ~viewer() {}
     virtual void clear();
+    virtual void show_board(const std::vector<std::vector<bool>>&);
     virtual void render();
     virtual void show_time(time_tick seconds);
     
