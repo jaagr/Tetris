@@ -47,24 +47,14 @@ TEST(viewer_test, render_board)
     viewer<sf::Drawable> sut(window_mock);
     std::vector<std::vector<bool>> board = {{false, true}, {false, false}, {true, false}};
     
+    std::shared_ptr<sf::Drawable> drawable = std::make_shared<sf::Text>();
+    
     //  expected
-    EXPECT_CALL(*window_mock, create_box(GT::_, GT::_, GT::_, GT::_, GT::_)).Times(2);
+    EXPECT_CALL(*window_mock, create_box(GT::_, GT::_, GT::_, GT::_, GT::_)).Times(2).WillRepeatedly(GT::Return(drawable));
+    EXPECT_CALL(*window_mock, update_layer(iwindow<sf::Drawable>::BLOCKS, GT::_));
     
     //  when
     sut.show_board(board);
-}
-
-TEST(viewer_test, render_boxes_on_board)
-{
-    //  given
-    auto window_mock = std::make_shared<GT::StrictMock<mocks::iwindow_mock>>();
-    viewer<sf::Drawable> sut(window_mock);
-    
-    //  expected
-    EXPECT_CALL(*window_mock, draw());
-    
-    //  when
-    sut.render();
 }
 
 TEST(viewer_test, show_time)
@@ -75,7 +65,7 @@ TEST(viewer_test, show_time)
     time_tick time = 200;
     std::string time_in_min = "3m20s";
     
-    //  expectedre
+    //  expected
     std::shared_ptr<sf::Drawable> drawable = std::make_shared<sf::Text>();
     auto drawables = std::vector<std::shared_ptr<sf::Drawable>>();
     drawables.push_back(drawable);
@@ -83,7 +73,6 @@ TEST(viewer_test, show_time)
     EXPECT_CALL(*window_mock, create_text(time_in_min)).WillOnce(GT::Return(drawable));
     EXPECT_CALL(*window_mock, update_layer(mocks::iwindow_mock::layer::TIME, 
                                            drawables));
-    EXPECT_CALL(*window_mock, draw());
     
     //  when
     sut.show_time(time);

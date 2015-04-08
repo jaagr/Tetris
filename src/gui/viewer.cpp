@@ -32,9 +32,9 @@ void viewer<sf::Drawable>::show_board(const std::vector<std::vector<bool>>& boar
     int width = board.front().size();
     
     std::vector<std::shared_ptr<sf::Drawable>> sprites;
-    for(int y = 0; y < height; y++)
+    for(int y = 0; y < height; ++y)
     {
-        for(int x = 0; x < width; x++)
+        for(int x = 0; x < width; ++x)
         {
             if(board[y][x])
             {
@@ -47,8 +47,7 @@ void viewer<sf::Drawable>::show_board(const std::vector<std::vector<bool>>& boar
     }
     
     window_->update_layer(iwindow<sf::Drawable>::BLOCKS,
-                          sprites
-    );
+                          sprites);
 }
 
 template<>
