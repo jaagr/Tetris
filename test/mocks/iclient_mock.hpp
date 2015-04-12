@@ -13,6 +13,7 @@ class iclient_mock : public iclient
 public:
     virtual ~iclient_mock() {}
     MOCK_METHOD0(run, void());
+    MOCK_CONST_METHOD0(is_running, bool());
 };
 
 } // namespace mocks

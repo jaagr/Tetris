@@ -1,18 +1,19 @@
 .PHONY: all rebuild clean run dirtree
 
-EXTERNALS		:= externals
-BUILD			:= build
-DIST			:= dist
-TEST			:= test
-RES			:= resources
+EXTERNALS	:= externals
+BUILD		:= build
+DIST		:= dist
+TEST		:= test
+RES		:= resources
 
-TGT			:= Simple
-TGT_TEST		:= Simple_test
+TGT		:= Simple
+TGT_TEST	:= Simple_test
 
-RM			:= rm
-MKDIR			:= mkdir
-FIND			:= find
-CP			:= cp
+RM		:= rm
+MKDIR		:= mkdir
+FIND		:= find
+CP		:= cp
+VALGRIND	:= valgrind
 
 ## Compilation common flags
 #CXX			:= g++-4.9
@@ -55,6 +56,9 @@ rebuilt: clean all
 
 test: $(BUILD)/$(TEST)/$(TGT_TEST)
 	./$(BUILD)/$(TEST)/$(TGT_TEST)
+
+valgrind: $(BUILD)/$(TEST)/$(TGT_TEST)
+	$(VALGRIND) --leak-check=yes ./$(BUILD)/$(TEST)/$(TGT_TEST)
 
 dirtree:
 	@$(MKDIR) -p $(foreach directory, $(OBJS), $(shell dirname $(directory)))

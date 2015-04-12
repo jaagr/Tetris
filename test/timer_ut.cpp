@@ -27,7 +27,6 @@ public:
 TEST(timer_test, machine_stopped)
 {
     const int timer_period = 1;
-    int wait_period = 2 * timer_period;
     
     //  given
     auto controler = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
@@ -39,17 +38,19 @@ TEST(timer_test, machine_stopped)
     EXPECT_CALL(*controler, is_active()).WillOnce(GT::Return(false));
     
     //  when
+    EXPECT_FALSE(sut->is_running());
     sut->run();
-    std::this_thread::sleep_for(
-        std::chrono::milliseconds(wait_period)
-    );
+    do
+    {
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(1)
+        );
+    }while(sut->is_running());
 }
-
 
 TEST(timer_test, one_event)
 {
     const int timer_period = 1;
-    int wait_period = 4 * timer_period;
     
     //  given
     auto controler = std::make_shared<GT::StrictMock<mocks::controller_mock>>();
@@ -67,11 +68,13 @@ TEST(timer_test, one_event)
     
     //  when
     sut->run();
-    std::this_thread::sleep_for(
-        std::chrono::milliseconds(wait_period)
-    );
+    do
+    {
+        std::this_thread::sleep_for(
+            std::chrono::milliseconds(1)
+        );
+    }while(sut->is_running());
 }
-
 
 
 } // namespace ut

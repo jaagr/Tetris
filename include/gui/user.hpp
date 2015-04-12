@@ -8,6 +8,7 @@
 #include "interfaces/ievent_provider.hpp"
 #include "interfaces/icontroller.hpp"
 
+struct i;
 namespace tetris {
         
 template<typename TEvent, typename TController>
@@ -23,6 +24,7 @@ public:
     
     virtual void run()
     {
+        is_running_ = true;
         TEvent event;
         while (state_machine_->is_active())
         {
@@ -31,9 +33,16 @@ public:
                 state_machine_->process_event(event);
             }     
         }
+        is_running_ = false;
+    }
+    
+    virtual bool is_running() const
+    {
+        return is_running_;
     }
 
 private:
+    bool is_running_ = false;
     std::shared_ptr<ievent_provider<TEvent>> event_provider_;
     std::shared_ptr<icontroller<TController>> state_machine_;
 };

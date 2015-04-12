@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <thread>
+#include <atomic>
 
 #include "interfaces/iclient.hpp"
 #include "interfaces/icontroller.hpp"
@@ -15,29 +16,33 @@ template<typename TEvent, typename TController, int TPeriod>
 class timer : public iclient {
 public:    
     timer(std::shared_ptr<icontroller<TController>> state_machine): 
-        state_machine_(state_machine){
-        }
+        state_machine_(state_machine), is_running_(false){   
+    }
     
     virtual ~timer(){}
     
     virtual void run()
     {
+        is_running_ = true;
         std::thread([&]()
         {
-            while(true)
+            while(state_machine_->is_active())
             {
-                if(not state_machine_->is_active())
-                {
-                    return;
-                }
                 state_machine_->process_event(TEvent());
                 sleep();
             }
+            is_running_ = false;
         }).detach();
+    }
+    
+    virtual bool is_running() const
+    {
+        return is_running_;
     }
 
 private:
     std::shared_ptr<icontroller<TController>> state_machine_;
+    std::atomic_bool is_running_;    
     
     void sleep()
     {
